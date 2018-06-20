@@ -1,9 +1,11 @@
 package lesson1;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class WindowGame extends BasicGame {
     GameContainer container;
+    TiledMap map;
 
     public WindowGame() {
         super("Lesson 1 :: WindowGame");
@@ -12,10 +14,12 @@ public class WindowGame extends BasicGame {
     @Override
     public void init(GameContainer container) throws SlickException {
         this.container = container;
+        this.map = new TiledMap("Map/map.tmx");
     }
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
+        this.map.render(0, 0);
     }
 
     @Override
@@ -31,6 +35,7 @@ public class WindowGame extends BasicGame {
         if (Input.KEY_ESCAPE == key) {
             container.exit();
         }
+
     }
 
 }

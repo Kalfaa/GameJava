@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="snow-expansion" tilewidth="32" tileheight="32" tilecount="77" columns="11">
+  <image source="Tile/snow-expansion.png" width="352" height="224"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNiYGBgGsWDBgMASwo5tJABAAA=
+  </data>
+ </layer>
+</map>
