@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="commons-lang3-3.7-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.7-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.7-bin.zip!/commons-lang3-3.7/apidocs" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

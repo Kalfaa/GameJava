@@ -3,9 +3,27 @@
  <tileset firstgid="1" name="snow-expansion" tilewidth="32" tileheight="32" tilecount="77" columns="11">
   <image source="Tile/snow-expansion.png" width="352" height="224"/>
  </tileset>
+ <tileset firstgid="78" name="tuto-slick2d-037-tuile-logic" tilewidth="32" tileheight="32" tilecount="25" columns="5">
+  <image source="Tile/tuto-slick2d-037-tuile-logic.png" width="160" height="160"/>
+ </tileset>
  <layer name="Calque de Tile 1" width="10" height="10">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACmNiYGBgGsWDBgMASwo5tJABAAA=
+  </data>
+ </layer>
+ <layer name="Calque 2" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGBpAC4i1gVhnoB1CYwAAZqxF7pABAAA=
+  </data>
+ </layer>
+ <layer name="Calque 3" width="10" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGFggD8QKQKw4wO4YLAAAYpbV+5ABAAA=
+  </data>
+ </layer>
+ <layer name="Wall" width="10" height="10" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgGBogFIrDBtohNAYAya8hw5ABAAA=
   </data>
  </layer>
 </map>
