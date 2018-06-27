@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact name="GameJava:jar">
+    <output-path>$PROJECT_DIR$/result/artifacts/GameJava_jar</output-path>
+    <root id="root">
+      <element id="archive" name="GameJava.jar">
+        <element id="module-output" name="GameJava" />
+      </element>
+      <element id="library" level="project" name="commons-lang3-3.7-javadoc" />
+      <element id="library" level="project" name="lwjgl" />
+      <element id="library" level="application" name="lib" />
+    </root>
+  </artifact>
+</component>

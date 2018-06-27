@@ -23,7 +23,7 @@ public class CodeState extends BasicGameState {
         this.background = new Image("HUD/UI/codestatebg.jpg");
         font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 26), false);
         textField = new CustomTextField(gameContainer, font, 0, 0, 640, 635);
-        textField.setBackgroundColor(Color.white);
+        textField.setBackgroundColor(Color.black);
     }
 
     @Override
