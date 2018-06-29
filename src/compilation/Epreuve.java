@@ -54,13 +54,13 @@ public class Epreuve {
     public String writeMainClass() throws IOException {
        String class_name ="" ;
        String result = readFile("compilation/packagecompile/TemplateClassMain",StandardCharsets.UTF_8);
-       result.replace("$TESTCLASS" ,class_name);
-       result.replace("$TEST1",_enigme.get_nameTest1());
-       result.replace("$TEST2",_enigme.get_nameTest2());
-       result.replace("$TEST2",_enigme.get_nameTest2());
-       result.replace("$BLOC1",_enigme.get_blocTest1());
-       result.replace("$BLOC2",_enigme.get_blocTest2());
-       result.replace("$BLOC3",_enigme.get_blocTest3());
+       result =result.replace("$TESTCLASS" ,class_name);
+       result = result.replace("$TEST1",_enigme.get_nameTest1());
+       result = result.replace("$TEST2",_enigme.get_nameTest2());
+       result = result.replace("$TEST2",_enigme.get_nameTest2());
+       result = result.replace("$BLOC1",_enigme.get_blocTest1());
+       result = result.replace("$BLOC2",_enigme.get_blocTest2());
+       result = result.replace("$BLOC3",_enigme.get_blocTest3());
 
 
         return result ;
