@@ -8,18 +8,31 @@ public class Enigme {
 
     private String _enonce;
 
-    private ArrayList _arglistType;
+    private String _blocTest1;
 
-    private ArrayList _test1;
+    private String _blocTest2;
 
-    private ArrayList _test2;
+    private String _blocTest3;
 
-    private ArrayList _test3;
+    private String _nameTest1;
 
-     Enigme(String function_name,String enonce , ArrayList arglist){
+    private String _nameTest2;
+
+    private String _nameTest3;
+
+    private String _className;
+
+
+     Enigme(String function_name, String enonce){
         _function_name = function_name;
         _enonce = enonce;
-        _arglistType = arglist;
+        _blocTest1 ="";
+        _blocTest2 ="";
+        _blocTest3 ="";
+        _nameTest1 ="";
+        _nameTest2 ="";
+        _nameTest3 ="";
+        _className ="";
     }
 
     public String get_function_name() {
@@ -38,46 +51,60 @@ public class Enigme {
         this._enonce = _enonce;
     }
 
-    public ArrayList get_arglistType() {
-        return _arglistType;
+    public String get_blocTest1() {
+        return _blocTest1;
     }
 
-    public void set_arglistType(ArrayList _arglistType) {
-        this._arglistType = _arglistType;
+    public void set_blocTest1(String _blocTest1) {
+        this._blocTest1 = _blocTest1;
     }
 
-    public ArrayList get_test1() {
-        return _test1;
+    public String get_blocTest2() {
+        return _blocTest2;
     }
 
-    public void set_test1(ArrayList _test1) {
-        this._test1 = _test1;
+    public void set_blocTest2(String _blocTest2) {
+        this._blocTest2 = _blocTest2;
     }
 
-    public ArrayList get_test2() {
-        return _test2;
+    public String get_blocTest3() {
+        return _blocTest3;
     }
 
-    public void set_test2(ArrayList _test2) {
-        this._test2 = _test2;
+    public void set_blocTest3(String _blocTest3) {
+        this._blocTest3 = _blocTest3;
     }
 
-    public ArrayList get_test3() {
-        return _test3;
+
+    public String get_nameTest1() {
+        return _nameTest1;
     }
 
-    public void set_test3(ArrayList _test3) {
-        this._test3 = _test3;
+    public void set_nameTest1(String _nameTest1) {
+        this._nameTest1 = _nameTest1+"();";
     }
 
-    public boolean isValidTest(ArrayList test){
-        if(test.size() == _arglistType.size()){
-            for(int i=0; i<_arglistType.size();i++){
-                if( ! (test.get(i).getClass() == _arglistType.get(i).getClass()) ){
-                    return false ;
-                }
-            }
-        }
-        return false ;
+    public String get_nameTest2() {
+        return _nameTest2;
+    }
+
+    public void set_nameTest2(String _nameTest2) {
+        this._nameTest2 = _nameTest2+"();";
+    }
+
+    public String get_nameTest3() {
+        return _nameTest3;
+    }
+
+    public void set_nameTest3(String _nameTest3) {
+        this._nameTest3 = _nameTest3+"();";
+    }
+
+    public String get_className() {
+        return _className;
+    }
+
+    public void set_className(String _className) {
+        this._className = _className;
     }
 }

@@ -20,7 +20,7 @@ class Sortie extends Thread{
     }
 
     private static void printLines(String name, InputStream ins) throws Exception {
-        String line = null;
+        String line;
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(ins));
         while ((line = in.readLine()) != null) {
