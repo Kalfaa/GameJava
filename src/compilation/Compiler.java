@@ -4,24 +4,32 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Compiler {
 
+    public Erreur _err ;
+
+    public Sortie _s ;
     public boolean isTest1 ;
 
     public boolean isTest2 ;
 
     public boolean isTest3;
 
-    private static void runProcess(String command) throws Exception {
+    private  boolean runProcess(String command) throws Exception {
             Process pro = Runtime.getRuntime().exec(command, null, new File("src"));
-            pro.waitFor(3, TimeUnit.SECONDS);
+            pro.waitFor(10, TimeUnit.SECONDS);
             //printLines(command + " stdout:", pro.getInputStream());
             //printLines(command + " stderr:", pro.getErrorStream());
-            Sortie s = new Sortie(pro,command);   s.start();
-            Erreur err = new Erreur(pro,command); err.start();
+             _s = new Sortie(pro,command);   _s.start();
+             _err = new Erreur(pro,command); _err.start();
             System.out.println(command + " exitValue() " + pro.exitValue());
+            if(pro.exitValue() ==0 && !_err.is_error() ){
+               return true ;
+            }
+            return false ;
     }
      Compiler(){
         isTest1 = true ;
@@ -29,7 +37,7 @@ public class Compiler {
         isTest3 = true ;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         try {
             runProcess("javac compilation/packagecompile/Main.java compilation/packagecompile/TestClass.java ");
             runProcess("java compilation/packagecompile/Main");
@@ -37,17 +45,22 @@ public class Compiler {
             e.printStackTrace();
             System.exit(0);
         }
-    }
+    }*/
 
     public boolean runTest(String className){
         try {
-            runProcess("javac compilation/packagecompile/Main.java compilation/packagecompile/"+className+".java ");
-            runProcess("java compilation/packagecompile/Main");
+            boolean success = runProcess("javac compilation/packagecompile/Main.java compilation/packagecompile/"+className+".java");
+            if(success) {
+                return runProcess("java compilation/packagecompile/Main");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return false ;
         }
-        return true;
+        return false;
     }
+
+
 }
 

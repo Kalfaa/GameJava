@@ -13,8 +13,8 @@ public class Epreuve {
     boolean _isSucceed;
     private Enigme _enigme;
     private String _answer;
-    private final static String PATH = "src/compilation/";
-   private Epreuve(Enigme enigme){
+    private final static String PATH = "src/compilation/packagecompile/";
+   public Epreuve(Enigme enigme){
         _isSucceed = false ;
         _enigme  = enigme;
     }
@@ -25,8 +25,12 @@ public class Epreuve {
 
     public void tryIt() {
         Compiler compiler = new Compiler();
-        createClassesToExecute();
-        compiler.runTest(_enigme.get_className());
+        //createClassesToExecute();
+        if (compiler.runTest(_enigme.get_className())){
+            System.out.print("good");
+        }else{
+            System.out.print("bad");
+        }
     }
 
     public void createClassesToExecute(){
@@ -34,7 +38,7 @@ public class Epreuve {
        File mainClass = new File(PATH+"Main"+".java");
        try{
            BufferedWriter writer = new BufferedWriter(new FileWriter(userClass));
-           writer.write(_answer);
+           writer.write("package compilation.packagecompile;"+_answer);
            writer.close();
        }catch(IOException e ){
 
@@ -52,12 +56,12 @@ public class Epreuve {
     }
 
     public String writeMainClass() throws IOException {
-       String class_name ="" ;
-       String result = readFile("compilation/packagecompile/TemplateClassMain",StandardCharsets.UTF_8);
+       String class_name = _enigme.get_className();
+       String result = readFile("src/compilation/packagecompile/TemplateClassMain",StandardCharsets.UTF_8);
        result =result.replace("$TESTCLASS" ,class_name);
        result = result.replace("$TEST1",_enigme.get_nameTest1());
        result = result.replace("$TEST2",_enigme.get_nameTest2());
-       result = result.replace("$TEST2",_enigme.get_nameTest2());
+       result = result.replace("$TEST3",_enigme.get_nameTest3());
        result = result.replace("$BLOC1",_enigme.get_blocTest1());
        result = result.replace("$BLOC2",_enigme.get_blocTest2());
        result = result.replace("$BLOC3",_enigme.get_blocTest3());
@@ -66,7 +70,7 @@ public class Epreuve {
         return result ;
     }
 
-    static String readFile(String path, Charset encoding)
+    public static String readFile(String path, Charset encoding)
             throws IOException
     {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -74,4 +78,7 @@ public class Epreuve {
     }
 
 
+    public void set_answer(String _answer) {
+        this._answer = _answer;
+    }
 }

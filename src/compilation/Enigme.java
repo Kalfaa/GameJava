@@ -34,6 +34,17 @@ public class Enigme {
         _nameTest3 ="";
         _className ="";
     }
+    Enigme(){
+        _function_name = "";
+        _enonce = "";
+        _blocTest1 ="";
+        _blocTest2 ="";
+        _blocTest3 ="";
+        _nameTest1 ="";
+        _nameTest2 ="";
+        _nameTest3 ="";
+        _className ="";
+    }
 
     public String get_function_name() {
         return _function_name;
@@ -80,24 +91,30 @@ public class Enigme {
         return _nameTest1;
     }
 
-    public void set_nameTest1(String _nameTest1) {
-        this._nameTest1 = _nameTest1+"();";
+    public void set_nameTest1(String nameTest1) {
+         if(nameTest1 !="") {
+            this._nameTest1 = "System.out.println(\"TEST 1 : \" + "+nameTest1 + "());";
+        }
     }
 
     public String get_nameTest2() {
         return _nameTest2;
     }
 
-    public void set_nameTest2(String _nameTest2) {
-        this._nameTest2 = _nameTest2+"();";
+    public void set_nameTest2(String nameTest2) {
+        if(nameTest2 !="") {
+            this._nameTest2 = "System.out.println(\"TEST 2 : \" + "+nameTest2 + "());";
+        }
     }
 
     public String get_nameTest3() {
         return _nameTest3;
     }
 
-    public void set_nameTest3(String _nameTest3) {
-        this._nameTest3 = _nameTest3+"();";
+    public void set_nameTest3(String nameTest3) {
+        if(nameTest3 !="") {
+            this._nameTest3 = "System.out.println(\"TEST 3 : \" + "+nameTest3 + "());";
+        }
     }
 
     public String get_className() {

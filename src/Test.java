@@ -1,3 +1,8 @@
+import compilation.Enigme;
+import compilation.Epreuve;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -5,17 +10,14 @@ import java.util.stream.Collectors;
 public class Test {
 
 
-    public static void main(String[] args) {
-
-        String result ="";
-       ArrayList<Object> _list = new ArrayList<Object>();
-       _list.add(2);
-       _list.add("2");
-       _list.add( Arrays.asList("A", new Object(), "C"));
-       for(Object object : _list){
-           result += object.toString();
-       }
-        System.out.print(result);
-    }
+    public static void main(String[] args) throws IOException {
+        JSONUtil jsonUtil= new JSONUtil();
+        Enigme eg = (Enigme)jsonUtil.convertStringJSONToObject(Epreuve.readFile("Map/Enigme/Epreuve1.json",StandardCharsets.UTF_8),Enigme.class);
+        Epreuve ep = new Epreuve(eg);
+        ep.set_answer("public class Math { public int sum(int a,int b) { return a+b ; } }");
+        ep.createClassesToExecute();
+        System.out.print("3 error".matches("[0-9]* error(s|)"));
+        ep.tryIt();
+            }
 
 }
