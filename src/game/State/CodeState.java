@@ -75,12 +75,13 @@ public class CodeState extends BasicGameState {
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
         time +=i ;
-        hud.update(gameContainer,stateBasedGame,time);
+
         try {
             StateGame.getTriggerController().update(gameContainer, stateBasedGame, i);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        hud.update(gameContainer,stateBasedGame,time);
     }
 
     public Epreuve getEpreuve() {
