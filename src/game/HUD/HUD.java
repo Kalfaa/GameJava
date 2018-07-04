@@ -44,6 +44,7 @@ public class HUD {
     }
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
         button_compile.update( gameContainer,  stateBasedGame,i);
+        _windowCompilation.update(gameContainer,stateBasedGame,i);
     }
 
     private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {

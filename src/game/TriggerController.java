@@ -20,6 +20,7 @@ public class TriggerController {
     public TriggerController(StateBasedGame game) {
         this.game = game;
     }
+    private int time ;
 
 
     public void update(GameContainer gameContainer,StateBasedGame basedGame,int delta) throws SlickException, IOException {
