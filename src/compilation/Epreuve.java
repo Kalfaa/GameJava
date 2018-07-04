@@ -8,11 +8,25 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Epreuve {
-    boolean _isSucceed;
+    private boolean _isSucceed;
     private Enigme _enigme;
     private String _answer;
+    private ArrayList _test;
+
+    public Enigme get_enigme() {
+        return _enigme;
+    }
+
+    public void set_enigme(Enigme enigme) {
+        this._enigme = enigme;
+    }
+
+
     private final static String PATH = "src/compilation/packagecompile/";
    public Epreuve(Enigme enigme){
         _isSucceed = false ;
@@ -23,13 +37,21 @@ public class Epreuve {
            return new Epreuve(enigme);
     }
 
-    public void tryIt() {
+    public ArrayList tryIt() {
         Compiler compiler = new Compiler();
+        ArrayList arrayList = new ArrayList();
         //createClassesToExecute();
         if (compiler.runTest(_enigme.get_className())){
             System.out.print("good");
+            boolean[] booleans = checkinList(compiler._s._stdout);
+            return new ArrayList<>(Arrays.asList(booleans));
         }else{
-            System.out.print("bad");
+            System.out.print("Erreur de compilation ou dexecution");
+            ArrayList erreurlist = new ArrayList();
+            erreurlist.add(false);
+            erreurlist.add(compiler._err._stdout);
+            arrayList.add(erreurlist);
+            return arrayList;
         }
     }
 
@@ -50,9 +72,6 @@ public class Epreuve {
         }catch(IOException e ){
 
         }
-
-
-
     }
 
     public String writeMainClass() throws IOException {
@@ -80,5 +99,29 @@ public class Epreuve {
 
     public void set_answer(String _answer) {
         this._answer = _answer;
+    }
+
+    public boolean[] checkinList(List<String> stringList){
+        boolean[] boolarray = new boolean[3];
+       for(String s : stringList) {
+           String err =s.substring(s.length()-13,s.length());
+          if(err.matches("TEST 1 : true")){
+                boolarray[0] = true;
+           }else if(err.matches("TEST 2 : true")){
+                boolarray[1] = true;
+          }else if(err.matches("TEST 3 : true")){
+                boolarray[2] = true;
+          }
+       }
+       return boolarray;
+
+    }
+
+    public ArrayList get_test() {
+        return _test;
+    }
+
+    public void set_test(ArrayList _test) {
+        this._test = _test;
     }
 }

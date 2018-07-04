@@ -1,5 +1,9 @@
 package compilation;
 
+import util.JSONUtil;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Enigme {
@@ -116,7 +120,11 @@ public class Enigme {
             this._nameTest3 = "System.out.println(\"TEST 3 : \" + "+nameTest3 + "());";
         }
     }
-
+    public static Enigme buildEnigmeFromJson(String path) throws IOException {
+           JSONUtil jsonUtil = new JSONUtil();
+           String filepath = Epreuve.readFile("Map/Enigme/"+path+".json", StandardCharsets.UTF_8);
+           return (Enigme)jsonUtil.convertStringJSONToObject(filepath,Enigme.class);
+    }
     public String get_className() {
         return _className;
     }

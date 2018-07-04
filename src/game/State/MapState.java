@@ -1,9 +1,14 @@
-package lesson1;
+package game.State;
 
+import game.model.Map;
+import game.model.Player;
+import game.PlayerController;
+import game.TriggerController;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.io.IOException;
 
 public class MapState extends BasicGameState {
     public static final int ID = 1;
@@ -11,9 +16,10 @@ public class MapState extends BasicGameState {
     private Map map = new Map();
     private Player player = new Player(map);
     private StateBasedGame game ;
-    PlayerController playerController;
+    private CodeState codeState ;
+    private TriggerController triggerController;
     // Les objets sont crées, il nous faut encore les initialiser, et pour cela on va compléter la méthode «  init() ». Un tableau de sprite est représenté par la classe org.newdawn.slick.SpriteSheet, il suffit d'instancier cette classe en lui donnant en argument le nom du fichier et les dimensions des cellules soit 64x64 dans mon cas.
-
+    private boolean on = true;
 
 
     @Override
@@ -21,30 +27,35 @@ public class MapState extends BasicGameState {
         this.container = container;
         this.map.init();
         this.player.init();
+        this.game = game;
+        //this.triggerController = new TriggerController(this.map,this.player,this.game,this.codeState);
+        StateGame.getTriggerController().initMapState(map,player);
         PlayerController playerController = new PlayerController(this.player);
         container.getInput().addKeyListener(playerController);
-        this.game = game;
+
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        this.map.renderBackground();
-        this.player.render(g);
-        this.map.renderForeground();
+        if(on) {
+            this.map.renderBackground();
+            this.player.render(g);
+            this.map.renderForeground();
+        }
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        this.player.update(delta);
+        if(on) {
+            try {
+                StateGame.getTriggerController().update(container, game, delta);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.player.update(delta);
+        }
         }
 
-    public void keyPressed(int key, char c) {
-        switch (key) {
-            case Input.KEY_P:
-                game.enterState(CodeState.ID);
-                break;
-        }
-    }
 
 
     public int getID() {
@@ -52,5 +63,19 @@ public class MapState extends BasicGameState {
     }
 
 
+    public CodeState getCodeState() {
+        return codeState;
+    }
 
+    public void setCodeState(CodeState codeState) {
+        this.codeState = codeState;
+    }
+
+    public boolean isOn() {
+        return on;
+    }
+
+    public void setOn(boolean on) {
+        this.on = on;
+    }
 }

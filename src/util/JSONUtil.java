@@ -1,3 +1,4 @@
+package util;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class JSONUtil {
     private ObjectMapper _objectMapper;
 
-    JSONUtil(){
+    public JSONUtil(){
         _objectMapper = new ObjectMapper();
     }
 

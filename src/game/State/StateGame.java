@@ -1,14 +1,26 @@
-package lesson1;
+package game.State;
 
+import game.TriggerController;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 class StateGame extends StateBasedGame {
-
+    private static TriggerController triggerController;
     public StateGame() {
         super("Lesson 15 :: StateGame");
+        triggerController = new TriggerController(this);
+        this.addState(new MapState());
+        this.addState(new CodeState());
+    }
+
+    public static TriggerController getTriggerController() {
+        return triggerController;
+    }
+
+    public static void setTriggerController(TriggerController triggerController) {
+        StateGame.triggerController = triggerController;
     }
 
     /**
@@ -17,8 +29,13 @@ class StateGame extends StateBasedGame {
      */
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        addState(new CodeState());
-        addState(new MapState());
+
+
+        this.getState(CodeState.ID).init(container,this);
+        //CodeState codeState =(CodeState) this.getState(CodeState.ID);
+
+        this.enterState(MapState.ID);
+        //codeState.initUI(container);
 
     }
 

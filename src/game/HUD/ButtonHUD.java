@@ -1,5 +1,6 @@
-package lesson1;
+package game.HUD;
 
+import game.State.CodeState;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
@@ -30,19 +31,22 @@ public class ButtonHUD {
     }
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame,int i) throws SlickException {
-        if(clicked && i - last_anim > 100){
+        CodeState codeState = (CodeState)stateBasedGame.getCurrentState();
+        if(clicked && i - last_anim > 300){
             this.clicked = false;
         }
         this.animations[0].update(i);
+
         int posX = Mouse.getX();
         int posY = (int)(720*(1-(float)Mouse.getY()/720));
-        if(Mouse.isButtonDown(0)){
-        if((posX> this.x && posX <this.animations[0].getWidth()+this.x)&&(posY>this.y && this.animations[0].getHeight()+this.y>posY)) {
+
+        if((posX> this.x && posX <this.animations[0].getWidth()+this.x)&&(posY>this.y && this.animations[0].getHeight()+this.y>posY) && !codeState.isCompiling() ) {
             if (Mouse.isButtonDown(0)) {
                 clicked = true ;
                 this.last_anim = i ;
+                codeState.setCompiling(true);
+                codeState.setResultCompile(true);
             }
-        }
         }
     }
 

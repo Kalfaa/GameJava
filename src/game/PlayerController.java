@@ -1,5 +1,6 @@
-package lesson1;
+package game;
 
+import game.model.Player;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 

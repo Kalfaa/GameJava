@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
- <tileset firstgid="1" name="snow-expansion" tilewidth="32" tileheight="32" tilecount="77" columns="11">
+<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="snow-expansion" tilewidth="32" tileheight="32">
   <image source="Tile/snow-expansion.png" width="352" height="224"/>
  </tileset>
- <tileset firstgid="78" name="tuto-slick2d-037-tuile-logic" tilewidth="32" tileheight="32" tilecount="25" columns="5">
+ <tileset firstgid="78" name="tuto-slick2d-037-tuile-logic" tilewidth="32" tileheight="32">
   <image source="Tile/tuto-slick2d-037-tuile-logic.png" width="160" height="160"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNiYGBgGsWDBgMASwo5tJABAAA=
+   H4sIAAAAAAAAC2NiYGBgGsWDBgMASwo5tJABAAA=
   </data>
  </layer>
  <layer name="Calque 2" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgGBpAC4i1gVhnoB1CYwAAZqxF7pABAAA=
+   H4sIAAAAAAAAC2NgGBpAC4i1gVhnoB1CYwAAZqxF7pABAAA=
   </data>
  </layer>
  <layer name="Calque 3" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgGFggD8QKQKw4wO4YLAAAYpbV+5ABAAA=
+   H4sIAAAAAAAAC2NgGFggD8QKQKw4wO4YLAAAYpbV+5ABAAA=
   </data>
  </layer>
- <layer name="Wall" width="10" height="10" visible="0">
+ <layer name="Wall" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACmNgGBogFIrDBtohNAYAya8hw5ABAAA=
+   H4sIAAAAAAAAC2NgGBogFIrDBtohNAYAya8hw5ABAAA=
   </data>
  </layer>
+ <objectgroup name="Calque d'objets 1" width="10" height="10">
+  <object name="eg1" type="Enigme" x="18" y="20" width="105" height="31">
+   <properties>
+    <property name="ID" value="7486"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

@@ -18,9 +18,9 @@ public class Compiler {
 
     public boolean isTest3;
 
-    private  boolean runProcess(String command) throws Exception {
+    private  boolean runProcess(String command,int timeout) throws Exception {
             Process pro = Runtime.getRuntime().exec(command, null, new File("src"));
-            pro.waitFor(10, TimeUnit.SECONDS);
+            pro.waitFor(timeout, TimeUnit.SECONDS);
             //printLines(command + " stdout:", pro.getInputStream());
             //printLines(command + " stderr:", pro.getErrorStream());
              _s = new Sortie(pro,command);   _s.start();
@@ -49,9 +49,9 @@ public class Compiler {
 
     public boolean runTest(String className){
         try {
-            boolean success = runProcess("javac compilation/packagecompile/Main.java compilation/packagecompile/"+className+".java");
+            boolean success = runProcess("javac compilation/packagecompile/Main.java compilation/packagecompile/"+className+".java",10);
             if(success) {
-                return runProcess("java compilation/packagecompile/Main");
+                return runProcess("java compilation/packagecompile/Main",3);
             }
 
         } catch (Exception e) {

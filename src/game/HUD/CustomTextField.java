@@ -1,4 +1,4 @@
-package lesson1;
+package game.HUD;
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,8 +10,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.TextField;
-
-import java.awt.*;
 
 public class CustomTextField extends TextField {
     private static final int INITIAL_KEY_REPEAT_INTERVAL = 400;
@@ -35,6 +33,7 @@ public class CustomTextField extends TextField {
     private int oldCursorPos;
     private boolean consume;
     private int temp_height;
+    private boolean area ;
 
 
     public CustomTextField(GUIContext container, Font font, int x, int y, int width, int height) {
@@ -42,20 +41,26 @@ public class CustomTextField extends TextField {
         this.maxCharacter = 10000;
         this.value = "";
         this.text = Color.white;
-        this.background = new Color(0.0F, 0.0F, 0.0F, 0.5F);
+        this.background = new Color(Color.black);
         this.visibleCursor = true;
         this.lastKey = -1;
         this.lastChar = 0;
         this.consume = true;
         this.font = font;
+        this.x =x;
+        this.y = y;
         this.setLocation(x, y);
         this.width = width;
         this.height = height;
         this.temp_height=height;
+        this.area=false;
     }
+
 
     @Override
     public void render(GUIContext container, Graphics g){
+        int x_temp = x;
+        int y_temp = y;
         if (this.lastKey != -1) {
             if (this.input.isKeyDown(this.lastKey)) {
                 if (this.repeatTimer < System.currentTimeMillis()) {
@@ -71,11 +76,11 @@ public class CustomTextField extends TextField {
         g.setWorldClip((float)this.x, (float)this.y, (float)this.width, (float)this.height);
         Color clr = g.getColor();
         if (this.background != null) {
-            g.setColor(this.background.multiply(clr));
+            g.setColor(this.background);
             g.fillRect((float)this.x, (float)this.y, (float)this.width, (float)this.height);
         }
 
-        g.setColor(this.text.multiply(clr));
+        g.setColor(this.text);
         Font temp = g.getFont();
         int lastpost = 0;
         if(this.value.substring(lastpost,this.cursorPos).lastIndexOf("\r")!=-1){
@@ -87,6 +92,8 @@ public class CustomTextField extends TextField {
         int ty = 0;
         int t_y =0;
 
+        int s_x = x;
+        int s_y= y;
         if (cpos > this.width) {
             tx = this.width - cpos - this.font.getWidth("_");
         }
@@ -101,9 +108,9 @@ public class CustomTextField extends TextField {
         int lastchar =0;
         //int t_x;
         for(String part : parts) {
-            x =0;
-            g.drawString(part, (float) (x + 1), (float) (y + 1));
-            y +=25;
+            s_x =x_temp;
+            g.drawString(part, (float) (s_x + 1), (float) (s_y + 1));
+            s_y +=25;
             i++;
         }
         if(this.value.length() >0){
@@ -111,7 +118,7 @@ public class CustomTextField extends TextField {
         }
 
         if (lastchar == 13){
-                y+=25;
+                s_y+=25;
             }
 
 
@@ -119,19 +126,26 @@ public class CustomTextField extends TextField {
             if (this.hasFocus() && this.visibleCursor) {
                 g.drawString("_", (float) (this.x + 1 + cpos + 2), (float) (t_y*25 + 1));
             }
-        x=0;
-        y=0;
+        x=x_temp;
+        y=y_temp;
 
-        g.translate((float)(-tx - 2), (float)(t_y));
+        g.translate((float)(-tx - 2), 0);
         if (this.border != null) {
             g.setColor(this.border.multiply(clr));
-            g.drawRect((float)this.x, (float)this.y, (float)this.width, (float)this.height);
+            g.drawRect((float)this.x, (float)y, (float)this.width, (float)this.height);
         }
 
         g.setColor(clr);
         g.setFont(temp);
         g.clearWorldClip();
         g.setClip(oldClip);
+    }
+    public boolean isArea() {
+        return area;
+    }
+
+    public void setArea(boolean area) {
+        this.area = area;
     }
 
 
@@ -218,7 +232,7 @@ public class CustomTextField extends TextField {
 
     public void keyPressed(int key, char c) {
         if (this.hasFocus()) {
-            if (key != -1) {
+            if (key != -1&& !this.area) {
                 label129: {
                     if (key == 47 && (this.input.isKeyDown(29) || this.input.isKeyDown(157))) {
                         String text = Sys.getClipboard();
@@ -229,9 +243,9 @@ public class CustomTextField extends TextField {
                         return;
                     }
 
-                    if (key != 44 || !this.input.isKeyDown(29) && !this.input.isKeyDown(157)) {
-                        if (!this.input.isKeyDown(29) && !this.input.isKeyDown(157)) {
-                            if (!this.input.isKeyDown(56) && !this.input.isKeyDown(184)) {
+                    if (key != 44 || !this.input.isKeyDown(29) && !this.input.isKeyDown(157) && !this.input.isKeyDown(34)) {
+                        if ( !this.input.isKeyDown(157)) {
+                            if (!this.input.isKeyDown(56)) {
                                 break label129;
                             }
 
@@ -295,7 +309,7 @@ public class CustomTextField extends TextField {
                 if (this.consume) {
                     this.container.getInput().consumeEvent();
                 }
-            } else if (((c < 127 && c > 31 )|| c == 13) && this.value.length() < this.maxCharacter) {
+            } else if ( (c < 135 && c > 31 || c == 13 ) && this.value.length() < this.maxCharacter && !area) {
                 if (this.cursorPos < this.value.length()) {
                     this.value = this.value.substring(0, this.cursorPos) + c + this.value.substring(this.cursorPos);
                 } else {
@@ -321,6 +335,7 @@ public class CustomTextField extends TextField {
         this.lastKey = -1;
         super.setFocus(focus);
     }
+
 
 }
 
