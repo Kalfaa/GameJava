@@ -1,10 +1,14 @@
 package game.State;
 
+import compilation.Enigme;
+import compilation.Epreuve;
 import game.TriggerController;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.io.IOException;
 
 class StateGame extends StateBasedGame {
     private static TriggerController triggerController;
@@ -34,8 +38,21 @@ class StateGame extends StateBasedGame {
         this.getState(CodeState.ID).init(container,this);
         //CodeState codeState =(CodeState) this.getState(CodeState.ID);
 
-        this.enterState(MapState.ID);
+        //this.enterState(MapState.ID);
         //codeState.initUI(container);
+
+        Enigme enigme = null;
+        try {
+            enigme = Enigme.buildEnigmeFromJson("7486");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Epreuve epreuve = new Epreuve(enigme);
+        CodeState cs =(CodeState)this.getState(CodeState.ID);
+        MapState mapState = (MapState)this.getState(MapState.ID);
+        mapState.setOn(false);
+        cs.initUI(container,epreuve);
+        this.enterState(CodeState.ID);
 
     }
 

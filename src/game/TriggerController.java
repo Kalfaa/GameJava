@@ -39,7 +39,13 @@ public class TriggerController {
             if(codeState.isCompiling()) {
                 Epreuve epreuve = codeState.getEpreuve();
                 epreuve.set_answer(codeState.get_answer());
+                epreuve.createClassesToExecute();
+                epreuve.writeMainClass();
                 ArrayList arrayList = epreuve.tryIt();
+                if( arrayList.size()==2){
+                    //epreuve.set_isSucceed(false);
+                    epreuve.is_errorStack();
+                }
                 epreuve.set_test(arrayList);
             }
             codeState.setCompiling(false);

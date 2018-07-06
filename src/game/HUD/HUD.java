@@ -12,19 +12,29 @@ public class HUD {
     private ButtonHUD button_compile;
     private List<TextField> _textFieldList ;
     private WindowCompilation _windowCompilation;
-    public void init() throws SlickException {
+    public void init(GameContainer gameContainer) throws SlickException {
         SpriteSheet spriteSheet = new SpriteSheet("HUD/UI/preview_164.png", 105, 32);
-        button_compile = new ButtonHUD("Test");
+        button_compile = new ButtonHUD("Test",120,660);
+
         Animation[] animations = new Animation[3];
         animations[0] = loadAnimation(spriteSheet, 1, 2, 2);
         animations[1] = loadAnimation(spriteSheet, 1, 3, 2);
         animations[2] = loadAnimation(spriteSheet, 0, 1, 2);
         button_compile.setAnimations(animations);
+        TrueTypeFont font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 26), false);
         _textFieldList = new ArrayList<TextField>();
         _windowCompilation = new WindowCompilation("test");
         _windowCompilation.setImage(spriteSheet.getSubImage(638,195,96,89));
         _windowCompilation.setOK(spriteSheet.getSubImage(58,280,18,18));
         _windowCompilation.setKO(spriteSheet.getSubImage(83,330,18,18));
+        _windowCompilation.setWindowOK(spriteSheet.getSubImage(129,163,51,51));
+        _windowCompilation.setWindowKO(spriteSheet.getSubImage(190,163,51,51));
+        CustomTextField customTextField = new CustomTextField(gameContainer,font,490,200,700,300);
+        customTextField.setArea(true);
+        _windowCompilation.setErrorField(customTextField);
+        ButtonOk buttonOk = new ButtonOk("OK",290,400);
+        buttonOk.setAnimations(animations);
+        _windowCompilation.setButtonOk(buttonOk);
     }
 
     private static final int P_BAR_X = 10;
@@ -38,13 +48,15 @@ public class HUD {
             textField.render(gameContainer,g);
         }
         if(isCompiling) {
-            _windowCompilation.render(g);
+            _windowCompilation.render(gameContainer,g);
         }
 
     }
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
         button_compile.update( gameContainer,  stateBasedGame,i);
+
         _windowCompilation.update(gameContainer,stateBasedGame,i);
+
     }
 
     private Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {

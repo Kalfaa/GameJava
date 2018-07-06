@@ -17,6 +17,7 @@ public class Epreuve {
     private Enigme _enigme;
     private String _answer;
     private ArrayList _test;
+    private boolean _errorStack;
 
     public Enigme get_enigme() {
         return _enigme;
@@ -31,6 +32,7 @@ public class Epreuve {
    public Epreuve(Enigme enigme){
         _isSucceed = false ;
         _enigme  = enigme;
+        _errorStack = false ;
     }
 
     public static Epreuve createEpreuve(Enigme enigme){
@@ -48,10 +50,10 @@ public class Epreuve {
         }else{
             System.out.print("Erreur de compilation ou dexecution");
             ArrayList erreurlist = new ArrayList();
-            erreurlist.add(false);
+            erreurlist.add(checkinList(compiler._s._stdout));
             erreurlist.add(compiler._err._stdout);
-            arrayList.add(erreurlist);
-            return arrayList;
+            //arrayList.add(erreurlist);
+            return erreurlist;
         }
     }
 
@@ -123,5 +125,21 @@ public class Epreuve {
 
     public void set_test(ArrayList _test) {
         this._test = _test;
+    }
+
+    public boolean is_isSucceed() {
+        return _isSucceed;
+    }
+
+    public void set_isSucceed(boolean _isSucceed) {
+        this._isSucceed = _isSucceed;
+    }
+
+    public boolean is_errorStack() {
+        return _errorStack;
+    }
+
+    public void set_errorStack(boolean _errorStack) {
+        this._errorStack = _errorStack;
     }
 }

@@ -25,6 +25,8 @@ public class Compiler {
             //printLines(command + " stderr:", pro.getErrorStream());
              _s = new Sortie(pro,command);   _s.start();
              _err = new Erreur(pro,command); _err.start();
+             _s.join();
+             _err.join();
             System.out.println(command + " exitValue() " + pro.exitValue());
             if(pro.exitValue() ==0 && !_err.is_error() ){
                return true ;

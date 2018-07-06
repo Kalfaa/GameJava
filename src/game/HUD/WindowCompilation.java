@@ -2,7 +2,6 @@ package game.HUD;
 
 import compilation.Enigme;
 import game.State.CodeState;
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -16,50 +15,71 @@ public class WindowCompilation {
     private Image KO;
     private Enigme enigme;
     private ArrayList test;
-    public void render(Graphics g) throws SlickException {
+    private Image windowOK;
+    private Image windowKO;
+    private CustomTextField errorField;
+    private ButtonOk buttonOk;
+    public void render(GameContainer gameContainer , Graphics g) throws SlickException {
         //g.drawImage(KO,300,100);
         //g.drawImage(OK,350,100);
         //Font font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 26), false);
+        g.scale(25F , 10F);
+        g.drawImage(windowOK,60/25F,180/10F);
+        g.resetTransform();
         g.scale(3F , 3F);
         //g.translate(1280/2, 720/2);
-        g.drawImage(image,470/3F,200/3F);
+        g.drawImage(image,200/3F,200/3F);
         g.resetTransform();
+
         g.setColor(Color.black);
         if(test!=null) {
             boolean[] booleans = (boolean[])test.get(0);
             if (!enigme.get_nameTest1().equals("")) {
-                g.drawString("TEST1", 490, 240);
+                g.drawString("TEST1", 240, 240);
                 Image verif;
                 if (booleans[0] ) {
                     verif = this.OK;
                 } else {
                     verif = this.KO;
                 }
-                g.drawImage(verif, 570, 240);
+                g.drawImage(verif, 290, 240);
             }
 
             if (!enigme.get_nameTest2().equals("")) {
-                g.drawString("TEST2", 490, 300);
+                g.drawString("TEST2", 240, 300);
                 Image verif;
                 if (booleans[1]) {
                     verif = this.OK;
                 } else {
                     verif = this.KO;
                 }
-                g.drawImage(verif, 570, 300);
+                g.drawImage(verif, 290, 300);
             }
 
-            if (!enigme.get_nameTest2().equals("")) {
-                g.drawString("TEST3", 490, 360);
+            if (!enigme.get_nameTest3().equals("")) {
+                g.drawString("TEST3", 240, 360);
                 Image verif;
                 if (booleans[2]) {
                     verif = this.OK;
                 } else {
                     verif = this.KO;
                 }
-                g.drawImage(verif, 570, 360);
+                g.drawImage(verif, 290, 360);
             }
+            if(test.size()==2){
+                StringBuilder sb = new StringBuilder();
+                for (String s : (ArrayList<String>)test.get(1))
+                {
+                    sb.append(s);
+                    sb.append("\r");
+                }
+                errorField.setBackgroundColor(Color.gray);
+                errorField.setText(sb.toString());
+                errorField.render(gameContainer,g);
+            }
+            buttonOk.render(g);
         }
+
 
     }
     public WindowCompilation(String name){
@@ -78,6 +98,7 @@ public class WindowCompilation {
         CodeState codeState = (CodeState)stateBasedGame.getCurrentState();
         this.test = codeState.getEpreuve().get_test();
         this.enigme = codeState.getEpreuve().get_enigme();
+        this.buttonOk.update(gameContainer,stateBasedGame,i);
     }
 
     public String getName() {
@@ -110,5 +131,37 @@ public class WindowCompilation {
 
     public void setKO(Image KO) {
         this.KO = KO;
+    }
+
+    public Image getWindowOK() {
+        return windowOK;
+    }
+
+    public void setWindowOK(Image windowOK) {
+        this.windowOK = windowOK;
+    }
+
+    public Image getWindowKO() {
+        return windowKO;
+    }
+
+    public void setWindowKO(Image windowKO) {
+        this.windowKO = windowKO;
+    }
+
+    public CustomTextField getErrorField() {
+        return errorField;
+    }
+
+    public void setErrorField(CustomTextField errorField) {
+        this.errorField = errorField;
+    }
+
+    public ButtonOk getButtonOk() {
+        return buttonOk;
+    }
+
+    public void setButtonOk(ButtonOk buttonOk) {
+        this.buttonOk = buttonOk;
     }
 }

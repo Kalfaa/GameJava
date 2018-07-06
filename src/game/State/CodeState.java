@@ -47,7 +47,7 @@ public class CodeState extends BasicGameState {
     public void initUI(GameContainer gameContainer, Epreuve epreuve) throws SlickException {
         this.epreuve =epreuve;
         hud = new HUD();
-        this.hud.init();
+        this.hud.init(gameContainer);
         this.background = new Image("HUD/UI/codestatebg.jpg");
         isCompiling = false;
         font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 26), false);
