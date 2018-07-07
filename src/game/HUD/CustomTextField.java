@@ -109,11 +109,12 @@ public class CustomTextField extends TextField {
         //int t_x;
         for(String part : parts) {
             s_x =x_temp;
-            g.drawString(part, (float) (s_x + 1), (float) (s_y + 1));
+            g.drawString(part, (float) (s_x + 1), (float) (s_y + 8));
             s_y +=25;
             i++;
         }
         if(this.value.length() >0){
+
             lastchar = this.value.charAt(this.value.length()-1);
         }
 
@@ -124,7 +125,7 @@ public class CustomTextField extends TextField {
 
 
             if (this.hasFocus() && this.visibleCursor) {
-                g.drawString("_", (float) (this.x + 1 + cpos + 2), (float) (t_y*25 + 1));
+                g.drawString("_", (float) (this.x + 1 + cpos + 2), (float) (this.y+t_y*25 + 8));
             }
         x=x_temp;
         y=y_temp;
@@ -265,7 +266,7 @@ public class CustomTextField extends TextField {
 
             if (this.lastKey != key) {
                 this.lastKey = key;
-                this.repeatTimer = System.currentTimeMillis() + 400L;
+                this.repeatTimer = System.currentTimeMillis() + 200L;
             } else {
                 this.repeatTimer = System.currentTimeMillis() + 50L;
             }

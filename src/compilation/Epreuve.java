@@ -18,7 +18,7 @@ public class Epreuve {
     private String _answer;
     private ArrayList _test;
     private boolean _errorStack;
-
+    private boolean _compiled;
     public Enigme get_enigme() {
         return _enigme;
     }
@@ -45,12 +45,12 @@ public class Epreuve {
         //createClassesToExecute();
         if (compiler.runTest(_enigme.get_className())){
             System.out.print("good");
-            boolean[] booleans = checkinList(compiler._s._stdout);
+            boolean[] booleans = checkinList(compiler._s._stdout,true);
             return new ArrayList<>(Arrays.asList(booleans));
         }else{
             System.out.print("Erreur de compilation ou dexecution");
             ArrayList erreurlist = new ArrayList();
-            erreurlist.add(checkinList(compiler._s._stdout));
+            erreurlist.add(checkinList(compiler._s._stdout,false));
             erreurlist.add(compiler._err._stdout);
             //arrayList.add(erreurlist);
             return erreurlist;
@@ -103,16 +103,17 @@ public class Epreuve {
         this._answer = _answer;
     }
 
-    public boolean[] checkinList(List<String> stringList){
-        boolean[] boolarray = new boolean[3];
+    public boolean[] checkinList(List<String> stringList,Boolean bool){
+        boolean[] boolarray = new boolean[4];
+        boolarray[0] = bool;
        for(String s : stringList) {
            String err =s.substring(s.length()-13,s.length());
           if(err.matches("TEST 1 : true")){
-                boolarray[0] = true;
-           }else if(err.matches("TEST 2 : true")){
                 boolarray[1] = true;
-          }else if(err.matches("TEST 3 : true")){
+           }else if(err.matches("TEST 2 : true")){
                 boolarray[2] = true;
+          }else if(err.matches("TEST 3 : true")){
+                boolarray[3] = true;
           }
        }
        return boolarray;
@@ -142,4 +143,5 @@ public class Epreuve {
     public void set_errorStack(boolean _errorStack) {
         this._errorStack = _errorStack;
     }
+
 }

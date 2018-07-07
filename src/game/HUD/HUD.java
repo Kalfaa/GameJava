@@ -21,7 +21,7 @@ public class HUD {
         animations[1] = loadAnimation(spriteSheet, 1, 3, 2);
         animations[2] = loadAnimation(spriteSheet, 0, 1, 2);
         button_compile.setAnimations(animations);
-        TrueTypeFont font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 26), false);
+        TrueTypeFont font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 16), false);
         _textFieldList = new ArrayList<TextField>();
         _windowCompilation = new WindowCompilation("test");
         _windowCompilation.setImage(spriteSheet.getSubImage(638,195,96,89));

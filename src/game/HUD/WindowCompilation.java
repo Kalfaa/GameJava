@@ -30,47 +30,54 @@ public class WindowCompilation {
         //g.translate(1280/2, 720/2);
         g.drawImage(image,200/3F,200/3F);
         g.resetTransform();
-
+        Image verif;
         g.setColor(Color.black);
         if(test!=null) {
             boolean[] booleans = (boolean[])test.get(0);
-            if (!enigme.get_nameTest1().equals("")) {
-                g.drawString("TEST1", 240, 240);
-                Image verif;
+                g.drawString("COMPILED", 290, 220);
+
                 if (booleans[0] ) {
                     verif = this.OK;
                 } else {
                     verif = this.KO;
                 }
-                g.drawImage(verif, 290, 240);
-            }
+                g.drawImage(verif, 370, 220);
 
-            if (!enigme.get_nameTest2().equals("")) {
-                g.drawString("TEST2", 240, 300);
-                Image verif;
-                if (booleans[1]) {
+
+            if (!enigme.get_nameTest1().equals("")) {
+                g.drawString("TEST1", 240, 255);
+                if (booleans[1] ) {
                     verif = this.OK;
                 } else {
                     verif = this.KO;
                 }
-                g.drawImage(verif, 290, 300);
+                g.drawImage(verif, 290, 255);
             }
 
-            if (!enigme.get_nameTest3().equals("")) {
-                g.drawString("TEST3", 240, 360);
-                Image verif;
+            if (!enigme.get_nameTest2().equals("")) {
+                g.drawString("TEST2", 240, 315);
                 if (booleans[2]) {
                     verif = this.OK;
                 } else {
                     verif = this.KO;
                 }
-                g.drawImage(verif, 290, 360);
+                g.drawImage(verif, 290, 315);
+            }
+
+            if (!enigme.get_nameTest3().equals("")) {
+                g.drawString("TEST3", 240, 375);
+                if (booleans[3]) {
+                    verif = this.OK;
+                } else {
+                    verif = this.KO;
+                }
+                g.drawImage(verif, 290, 375);
             }
             if(test.size()==2){
                 StringBuilder sb = new StringBuilder();
                 for (String s : (ArrayList<String>)test.get(1))
                 {
-                    sb.append(s);
+                    sb.append(s.substring(70,s.length()));
                     sb.append("\r");
                 }
                 errorField.setBackgroundColor(Color.gray);
