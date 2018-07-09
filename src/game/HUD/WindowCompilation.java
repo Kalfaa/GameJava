@@ -19,12 +19,16 @@ public class WindowCompilation {
     private Image windowKO;
     private CustomTextField errorField;
     private ButtonOk buttonOk;
+    private boolean succeed;
+    private int x ;
+    private int y ;
     public void render(GameContainer gameContainer , Graphics g) throws SlickException {
         //g.drawImage(KO,300,100);
         //g.drawImage(OK,350,100);
         //Font font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 26), false);
-        g.scale(25F , 10F);
-        g.drawImage(windowOK,60/25F,180/10F);
+        //g.scale(25F , 10F);
+
+        g.drawImage(succeed ? windowOK:windowKO,x,y);
         g.resetTransform();
         g.scale(3F , 3F);
         //g.translate(1280/2, 720/2);
@@ -89,8 +93,10 @@ public class WindowCompilation {
 
 
     }
-    public WindowCompilation(String name){
+    public WindowCompilation(String name,int x, int y){
         this.name = name ;
+        this.x = x;
+        this.y = y ;
     }
 
     public Animation[] getAnimations() {
@@ -105,6 +111,7 @@ public class WindowCompilation {
         CodeState codeState = (CodeState)stateBasedGame.getCurrentState();
         this.test = codeState.getEpreuve().get_test();
         this.enigme = codeState.getEpreuve().get_enigme();
+        this.succeed = codeState.getEpreuve().is_isSucceed();
         this.buttonOk.update(gameContainer,stateBasedGame,i);
     }
 
@@ -170,5 +177,13 @@ public class WindowCompilation {
 
     public void setButtonOk(ButtonOk buttonOk) {
         this.buttonOk = buttonOk;
+    }
+
+    public boolean isSucceed() {
+        return succeed;
+    }
+
+    public void setSucceed(boolean succeed) {
+        this.succeed = succeed;
     }
 }

@@ -70,10 +70,12 @@ public class CodeState extends BasicGameState {
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         background.draw(0, 0, gameContainer.getWidth(), gameContainer.getHeight());
         this.hud.render(gameContainer,graphics,resultCompile);
+        StateGame.getSuperHUD().render(gameContainer,graphics);
     }
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
+        StateGame.time +=i;
         time +=i ;
 
         try {
@@ -82,6 +84,7 @@ public class CodeState extends BasicGameState {
             e.printStackTrace();
         }
         hud.update(gameContainer,stateBasedGame,time);
+
     }
 
     public Epreuve getEpreuve() {

@@ -42,10 +42,12 @@ public class MapState extends BasicGameState {
             this.player.render(g);
             this.map.renderForeground();
         }
+        StateGame.getSuperHUD().render(container,g);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        StateGame.time +=delta;
         if(on) {
             try {
                 StateGame.getTriggerController().update(container, game, delta);
@@ -54,6 +56,7 @@ public class MapState extends BasicGameState {
             }
             this.player.update(delta);
         }
+
         }
 
 

@@ -4,12 +4,14 @@ import compilation.Enigme;
 import compilation.Epreuve;
 import game.State.CodeState;
 import game.State.MapState;
+import game.State.StateGame;
 import game.model.Map;
 import game.model.Player;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ public class TriggerController {
 
 
     public void update(GameContainer gameContainer,StateBasedGame basedGame,int delta) throws SlickException, IOException {
-        if (basedGame.getCurrentStateID()==MapState.ID) {
+        if (basedGame.getCurrentStateID()==MapState.ID && player.isAction()) {
             for (int objectID = 0; objectID < map.getObjectCount(); objectID++) {
                 if (isInTrigger(objectID)) {
                     if ("Enigme".equals(map.getObjectType(objectID))) {
@@ -45,6 +47,8 @@ public class TriggerController {
                 if( arrayList.size()==2){
                     //epreuve.set_isSucceed(false);
                     epreuve.is_errorStack();
+                }else{
+
                 }
                 epreuve.set_test(arrayList);
             }
@@ -52,6 +56,10 @@ public class TriggerController {
 
         }
 
+    }
+
+    public void enigmeResolved(){
+        System.out.print(StateGame.time/1000);
     }
 
     public void initMapState(Map map ,Player player){
@@ -67,8 +75,8 @@ public class TriggerController {
     private boolean isInTrigger(int id) {
         return player.getX() > map.getObjectX(id)
                 && player.getX() < map.getObjectX(id) + map.getObjectWidth(id)
-                && player.getY() > map.getObjectY(id)
-                && player.getY() < map.getObjectY(id) + map.getObjectHeight(id);
+                && player.getY()-10 > map.getObjectY(id)
+                && player.getY()-10 < map.getObjectY(id) + map.getObjectHeight(id);
     }
 
     private void launchEnigme(GameContainer gameContainer , StateBasedGame basedGame, String objectID) throws SlickException, IOException {

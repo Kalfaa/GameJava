@@ -2,6 +2,7 @@ package game.State;
 
 import compilation.Enigme;
 import compilation.Epreuve;
+import game.HUD.SuperHUD;
 import game.TriggerController;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -10,13 +11,18 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import java.io.IOException;
 
-class StateGame extends StateBasedGame {
+public class StateGame extends StateBasedGame {
     private static TriggerController triggerController;
+    public static int time = 0;
+    private static SuperHUD superHUD;
     public StateGame() {
         super("Lesson 15 :: StateGame");
         triggerController = new TriggerController(this);
+        superHUD =new SuperHUD();
+
         this.addState(new MapState());
         this.addState(new CodeState());
+
     }
 
     public static TriggerController getTriggerController() {
@@ -27,6 +33,14 @@ class StateGame extends StateBasedGame {
         StateGame.triggerController = triggerController;
     }
 
+    public static SuperHUD getSuperHUD() {
+        return superHUD;
+    }
+
+    public static void setSuperHUD(SuperHUD superHUD) {
+        StateGame.superHUD = superHUD;
+    }
+
     /**
      * Ici il suffit d'ajouter nos deux boucles de jeux.
      * La première ajoutèe sera celle qui sera utilisée au début
@@ -34,14 +48,15 @@ class StateGame extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
 
+        superHUD.init(container);
 
         this.getState(CodeState.ID).init(container,this);
-        //CodeState codeState =(CodeState) this.getState(CodeState.ID);
+        CodeState codeState =(CodeState) this.getState(CodeState.ID);
 
-        //this.enterState(MapState.ID);
+        this.enterState(MapState.ID);
         //codeState.initUI(container);
 
-        Enigme enigme = null;
+       /*Enigme enigme = null;
         try {
             enigme = Enigme.buildEnigmeFromJson("7486");
         } catch (IOException e) {
@@ -52,7 +67,7 @@ class StateGame extends StateBasedGame {
         MapState mapState = (MapState)this.getState(MapState.ID);
         mapState.setOn(false);
         cs.initUI(container,epreuve);
-        this.enterState(CodeState.ID);
+        this.enterState(CodeState.ID);*/
 
     }
 
@@ -62,4 +77,6 @@ class StateGame extends StateBasedGame {
         app.setTargetFrameRate(maxFPS);
         app.start();
     }
+
+
 }

@@ -9,10 +9,12 @@ public class Player {
     private Animation[] animations = new Animation[8];
     private boolean onStair = false;
     private Map map;
+    private boolean action ;
 
 
     public Player(Map map) {
         this.map = map;
+        this.action = false;
     }
 
     public void init() throws SlickException {
@@ -86,4 +88,12 @@ public class Player {
     public void setMoving(boolean moving) { this.moving = moving; }
     public boolean isOnStair() { return onStair; }
     public void setOnStair(boolean onStair) { this.onStair = onStair; }
+
+    public boolean isAction() {
+        return action;
+    }
+
+    public void setAction(boolean action) {
+        this.action = action;
+    }
 }

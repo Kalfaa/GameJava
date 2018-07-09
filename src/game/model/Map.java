@@ -23,6 +23,9 @@ public class Map {
     }
 
     public boolean isCollision(float x, float y) {
+        if(x <0 || y <0 || x>tiledMap.getWidth()*tiledMap.getTileWidth() || y >tiledMap.getHeight()*tiledMap.getTileHeight()) {
+            return true ;
+        }
         int tileW = this.tiledMap.getTileWidth();
         int tileH = this.tiledMap.getTileHeight();
         int logicLayer = this.tiledMap.getLayerIndex("Wall");

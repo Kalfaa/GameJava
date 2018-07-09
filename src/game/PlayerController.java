@@ -42,11 +42,21 @@ public class PlayerController implements KeyListener {
                 this.player.setDirection(3);
                 this.player.setMoving(true);
                 break;
+                case Input.KEY_SPACE:
+                    this.player.setAction(true);
+                    break;
         }
     }
 
     @Override
     public void keyReleased(int key, char c) {
         this.player.setMoving(false);
+        switch (key){
+            case Input.KEY_SPACE:
+                this.player.setAction(false);
+                break;
+        }
+
+
     }
 }

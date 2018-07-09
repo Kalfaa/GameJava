@@ -1,6 +1,7 @@
 package game.HUD;
 
 import game.State.CodeState;
+import game.State.StateGame;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -45,6 +46,10 @@ public class ButtonOk extends ButtonHUD {
                 this.last_anim = i ;
                 codeState.setCompiling(false);
                 codeState.setResultCompile(false);
+                if(codeState.getEpreuve().is_isSucceed()){
+                    StateGame.getTriggerController().enigmeResolved();
+                }
+
             }
         }
     }

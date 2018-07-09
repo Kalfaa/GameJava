@@ -45,12 +45,13 @@ public class Epreuve {
         //createClassesToExecute();
         if (compiler.runTest(_enigme.get_className())){
             System.out.print("good");
-            boolean[] booleans = checkinList(compiler._s._stdout,true);
+            boolean[] booleans = checkinList(compiler._s._stdout,true,_enigme);
+            this._isSucceed = checkIfSucceed(booleans);
             return new ArrayList<>(Arrays.asList(booleans));
         }else{
             System.out.print("Erreur de compilation ou dexecution");
             ArrayList erreurlist = new ArrayList();
-            erreurlist.add(checkinList(compiler._s._stdout,false));
+            erreurlist.add(checkinList(compiler._s._stdout,false,_enigme));
             erreurlist.add(compiler._err._stdout);
             //arrayList.add(erreurlist);
             return erreurlist;
@@ -103,16 +104,16 @@ public class Epreuve {
         this._answer = _answer;
     }
 
-    public boolean[] checkinList(List<String> stringList,Boolean bool){
+    public boolean[] checkinList(List<String> stringList,Boolean bool,Enigme enigme){
         boolean[] boolarray = new boolean[4];
         boolarray[0] = bool;
        for(String s : stringList) {
            String err =s.substring(s.length()-13,s.length());
-          if(err.matches("TEST 1 : true")){
+          if(err.matches("TEST 1 : true")|| enigme.get_blocTest1()==""){
                 boolarray[1] = true;
-           }else if(err.matches("TEST 2 : true")){
+           } if(err.matches("TEST 2 : true")|| enigme.get_blocTest2()==""){
                 boolarray[2] = true;
-          }else if(err.matches("TEST 3 : true")){
+          } if(err.matches("TEST 3 : true")|| enigme.get_blocTest3()==""){
                 boolarray[3] = true;
           }
        }
@@ -144,4 +145,14 @@ public class Epreuve {
         this._errorStack = _errorStack;
     }
 
+
+    public boolean checkIfSucceed(boolean[] booleans){
+        for (boolean aBoolean : booleans) {
+
+            if (!aBoolean) {
+                return false;
+            }
+        }
+        return true ;
+    }
 }
