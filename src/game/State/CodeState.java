@@ -24,6 +24,16 @@ public class CodeState extends BasicGameState {
     private int time =0 ;
     private boolean isCompiling;
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    private boolean active;
+
     public boolean isResultCompile() {
         return resultCompile;
     }
@@ -38,7 +48,11 @@ public class CodeState extends BasicGameState {
         return ID;
     }
 
+    public void leave(GameContainer gameContainer, StateBasedGame stateBasedGame){
+        textField.nullify();
+        textArea.nullify();
 
+    }
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) {
 
@@ -61,20 +75,29 @@ public class CodeState extends BasicGameState {
         this.hud.add_textFieldList(textField);
         this.hud.add_textFieldList(textArea);
         this.resultCompile =false;
+        this.active = true;
     }
 
     public void destroyUI(){
+        textField.deactivate();
+        textArea.deactivate();
         textField = null;
+        textArea = null ;
     }
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-        background.draw(0, 0, gameContainer.getWidth(), gameContainer.getHeight());
-        this.hud.render(gameContainer,graphics,resultCompile);
-        StateGame.getSuperHUD().render(gameContainer,graphics);
+
+            background.draw(0, 0, gameContainer.getWidth(), gameContainer.getHeight());
+            this.hud.render(gameContainer, graphics, resultCompile);
+            StateGame.getSuperHUD().render(gameContainer, graphics);
     }
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
+        if(!active) {
+            textField.deactivate();
+            textArea.deactivate();
+        }
         StateGame.time +=i;
         time +=i ;
 

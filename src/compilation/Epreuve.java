@@ -18,7 +18,7 @@ public class Epreuve {
     private String _answer;
     private ArrayList _test;
     private boolean _errorStack;
-    private boolean _compiled;
+    private String _enigmeID;
     public Enigme get_enigme() {
         return _enigme;
     }
@@ -29,15 +29,13 @@ public class Epreuve {
 
 
     private final static String PATH = "src/compilation/packagecompile/";
-   public Epreuve(Enigme enigme){
+   public Epreuve(Enigme enigme,String ID){
         _isSucceed = false ;
         _enigme  = enigme;
         _errorStack = false ;
+        _enigmeID  = ID;
     }
 
-    public static Epreuve createEpreuve(Enigme enigme){
-           return new Epreuve(enigme);
-    }
 
     public ArrayList tryIt() {
         Compiler compiler = new Compiler();
@@ -154,5 +152,13 @@ public class Epreuve {
             }
         }
         return true ;
+    }
+
+    public String get_enigmeID() {
+        return _enigmeID;
+    }
+
+    public void set_enigmeID(String _enigmeID) {
+        this._enigmeID = _enigmeID;
     }
 }

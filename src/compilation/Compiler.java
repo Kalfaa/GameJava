@@ -37,6 +37,7 @@ public class Compiler {
         isTest1 = true ;
         isTest2 = true ;
         isTest3 = true ;
+
     }
 
     /*public static void main(String[] args) {

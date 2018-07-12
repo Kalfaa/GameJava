@@ -1,5 +1,6 @@
 package game.State;
 
+import compilation.Enigme;
 import game.model.Map;
 import game.model.Player;
 import game.PlayerController;
@@ -22,6 +23,7 @@ public class MapState extends BasicGameState {
     private boolean on = true;
 
 
+
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.container = container;
@@ -37,25 +39,23 @@ public class MapState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        if(on) {
             this.map.renderBackground();
             this.player.render(g);
             this.map.renderForeground();
-        }
+
         StateGame.getSuperHUD().render(container,g);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         StateGame.time +=delta;
-        if(on) {
             try {
                 StateGame.getTriggerController().update(container, game, delta);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             this.player.update(delta);
-        }
+
 
         }
 

@@ -34,7 +34,16 @@ public class CustomTextField extends TextField {
     private boolean consume;
     private int temp_height;
     private boolean area ;
+    public boolean focus = false;
 
+
+    public boolean isConsume() {
+        return consume;
+    }
+
+    public void setConsume(boolean consume) {
+        this.consume = consume;
+    }
 
     public CustomTextField(GUIContext container, Font font, int x, int y, int width, int height) {
         super(container,font,x,y,width,height);
@@ -181,6 +190,17 @@ public class CustomTextField extends TextField {
         return this.value;
     }
 
+    @Override
+    public void deactivate() {
+        focus = false;
+        setFocus(false);
+    }
+
+    public void setFocus(boolean focus) {
+        this.lastKey = -1;
+        super.setFocus(focus);
+    }
+
     public void setText(String value) {
         this.value = value;
         if (this.cursorPos > value.length()) {
@@ -232,9 +252,10 @@ public class CustomTextField extends TextField {
     }
 
     public void keyPressed(int key, char c) {
-        if (this.hasFocus()) {
-            if (key != -1&& !this.area) {
-                label129: {
+        if (super.hasFocus()) {
+            if (key != -1 && !this.area) {
+                label129:
+                {
                     if (key == 47 && (this.input.isKeyDown(29) || this.input.isKeyDown(157))) {
                         String text = Sys.getClipboard();
                         if (text != null) {
@@ -245,7 +266,7 @@ public class CustomTextField extends TextField {
                     }
 
                     if (key != 44 || !this.input.isKeyDown(29) && !this.input.isKeyDown(157) && !this.input.isKeyDown(34)) {
-                        if ( !this.input.isKeyDown(157)) {
+                        if (!this.input.isKeyDown(157)) {
                             if (!this.input.isKeyDown(56)) {
                                 break label129;
                             }
@@ -302,6 +323,24 @@ public class CustomTextField extends TextField {
                 if (this.consume) {
                     this.container.getInput().consumeEvent();
                 }
+            }else if(key == Input.KEY_UP){
+
+                //TODO
+                this.cursorPos = checkWhereIsLastReturn();
+
+
+                if (this.consume) {
+                    this.container.getInput().consumeEvent();
+                }
+        }else if(key == Input.KEY_DOWN){
+
+                //TODO
+                this.cursorPos += checkWhereIsNextReturn();
+
+
+                if (this.consume) {
+                    this.container.getInput().consumeEvent();
+                }
             } else if (key == Input.KEY_DELETE) {
                 if (this.value.length() > this.cursorPos) {
                     this.value = this.value.substring(0, this.cursorPos) + this.value.substring(this.cursorPos + 1);
@@ -332,11 +371,28 @@ public class CustomTextField extends TextField {
 
     }
 
-    public void setFocus(boolean focus) {
-        this.lastKey = -1;
-        super.setFocus(focus);
+    public int checkWhereIsLastReturn(){
+        int result = this.value.substring(0,this.cursorPos).lastIndexOf("\r");
+        if(result ==-1){
+            return 0;
+        }
+            return result;
+
     }
 
+    public int checkWhereIsNextReturn(){
+        int result = this.value.substring(this.cursorPos).indexOf("\r");
+        if(result ==0){
+            result = this.value.substring(this.cursorPos+1).indexOf("\r");
+        } if(result ==-1){
+            return this.value.substring(this.cursorPos).length();
+        }
+            return result;
+    }
 
+    public void nullify() {
+        width =0;
+        height = 0 ;
+    }
 }
 
