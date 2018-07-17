@@ -8,19 +8,21 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HUD {
+public class HUDCodeState {
     private ButtonHUD button_compile;
     private List<TextField> _textFieldList ;
     private WindowCompilation _windowCompilation;
+    private ButtonQuit _buttonQuit;
     public void init(GameContainer gameContainer) throws SlickException {
         SpriteSheet spriteSheet = new SpriteSheet("HUD/UI/preview_164.png", 105, 32);
         button_compile = new ButtonHUD("Test",120,660);
-
         Animation[] animations = new Animation[3];
         animations[0] = loadAnimation(spriteSheet, 1, 2, 2);
         animations[1] = loadAnimation(spriteSheet, 1, 3, 2);
         animations[2] = loadAnimation(spriteSheet, 0, 1, 2);
         button_compile.setAnimations(animations);
+        _buttonQuit = new ButtonQuit("Quit",720,660);
+        _buttonQuit.setAnimations(animations);
         TrueTypeFont font = new TrueTypeFont(new java.awt.Font(java.awt.Font.SERIF,java.awt.Font.BOLD , 16), false);
         _textFieldList = new ArrayList<TextField>();
         _windowCompilation = new WindowCompilation("test",130,180);
@@ -39,8 +41,6 @@ public class HUD {
         _windowCompilation.setButtonOk(buttonOk);
     }
 
-    private static final int P_BAR_X = 10;
-    private static final int P_BAR_Y = 10;
 
     public void render(GameContainer gameContainer , Graphics g,boolean isCompiling) throws SlickException {
         g.resetTransform();
@@ -52,12 +52,14 @@ public class HUD {
         if(isCompiling) {
             _windowCompilation.render(gameContainer,g);
         }
+        _buttonQuit.render(g);
 
     }
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
         button_compile.update( gameContainer,  stateBasedGame,i);
 
         _windowCompilation.update(gameContainer,stateBasedGame,i);
+        _buttonQuit.update(gameContainer,stateBasedGame,i);
 
     }
 

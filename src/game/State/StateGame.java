@@ -76,6 +76,7 @@ public class StateGame extends StateBasedGame {
         AppGameContainer app = new AppGameContainer(new StateGame(), 1280, 720, false);
         app.setTargetFrameRate(maxFPS);
         app.start();
+        System.out.println(5);
     }
 
 

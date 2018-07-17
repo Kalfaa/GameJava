@@ -26,7 +26,7 @@ public class TriggerController {
 
     public int checkForTheEnd(){
         int count =0;
-        Epreuve[] epreuves =map.getEpreuves();
+        ArrayList<Epreuve> epreuves =map.getEpreuves();
     for( Epreuve epreuve : epreuves ){
         if ( epreuve!=null&&!epreuve.is_isSucceed() ){
             count++;
@@ -75,6 +75,7 @@ public class TriggerController {
         cs.setActive(false);
         this.game.enterState(MapState.ID);
     }
+
 
     public void initMapState(Map map ,Player player){
         this.map = map;

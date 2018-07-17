@@ -16,18 +16,18 @@ public class Map {
 
     private TiledMap tiledMap;
     public boolean[] boolenigme;
-    public Epreuve[] epreuves = new Epreuve[3];
+    public ArrayList<Epreuve> epreuves = new ArrayList<Epreuve>();
     public void init() throws SlickException {
         this.tiledMap = new TiledMap("map/map.tmx");
         epreuves = initArray();
     }
 
-    public Epreuve[] getEpreuves() {
+    public ArrayList<Epreuve> getEpreuves() {
         return epreuves;
     }
 
-    private Epreuve[] initArray() throws SlickException {
-        Epreuve[] epreuvesResult = new Epreuve[3];
+    private ArrayList<Epreuve> initArray() throws SlickException {
+        ArrayList<Epreuve> epreuvesResult =new ArrayList<Epreuve>();
         int count =0 ;
         for (int objectID = 0; objectID < getObjectCount(); objectID++) {
                 if ("Enigme".equals(getObjectType(objectID))) {
@@ -39,7 +39,7 @@ public class Map {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    epreuvesResult[count] = new Epreuve(enigme,enigmeID);
+                    epreuvesResult.add( new Epreuve(enigme,enigmeID));
                    count++;
                 }
             }
@@ -121,5 +121,6 @@ public class Map {
     public String getObjectProperty(int objectID, String propertyName, String def) {
         return this.tiledMap.getObjectProperty(0, objectID, propertyName, def);
     }
+
 
 }

@@ -2,7 +2,7 @@ package game.State;
 
 import compilation.Epreuve;
 import game.HUD.CustomTextField;
-import game.HUD.HUD;
+import game.HUD.HUDCodeState;
 import game.HUD.WindowCompilation;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.TextField;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CodeState extends BasicGameState {
     public static final int ID = 2;
-    private HUD hud ;
+    private HUDCodeState hud ;
     private WindowCompilation windowCompilation;
     private CustomTextField textField;
     private CustomTextField textArea;
@@ -60,7 +60,7 @@ public class CodeState extends BasicGameState {
     }
     public void initUI(GameContainer gameContainer, Epreuve epreuve) throws SlickException {
         this.epreuve =epreuve;
-        hud = new HUD();
+        hud = new HUDCodeState();
         this.hud.init(gameContainer);
         this.background = new Image("HUD/UI/codestatebg.jpg");
         isCompiling = false;
@@ -72,6 +72,7 @@ public class CodeState extends BasicGameState {
         //this.textField.setText("ON EST DANS LE BENDO ILICOO\r ilicoo");
         this.textArea.setText(epreuve.get_enigme().get_enonce());
         this.textArea.setArea(true);
+        this.textArea.formatText();
         this.hud.add_textFieldList(textField);
         this.hud.add_textFieldList(textArea);
         this.resultCompile =false;
