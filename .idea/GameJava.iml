@@ -11,5 +11,11 @@
     <orderEntry type="library" name="lib" level="application" />
     <orderEntry type="library" name="lwjgl" level="project" />
     <orderEntry type="library" name="commons-lang3-3.7-javadoc" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.9.6" level="project" />
+    <orderEntry type="library" name="jackson-core-2.9.6" level="project" />
+    <orderEntry type="library" name="lwjgl_util_applet" level="project" />
+    <orderEntry type="library" name="xpp3-1.1.4c" level="project" />
+    <orderEntry type="library" name="TWL" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.9.0" level="project" />
   </component>
 </module>
